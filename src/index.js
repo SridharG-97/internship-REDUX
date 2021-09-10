@@ -1,14 +1,35 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { Provider } from "react-redux";
-import store from "./Redux/Store";
+import { Provider, useDispatch } from "react-redux";
+
+import { createStore } from "redux";
+
+// Reducer
+const aboutReducer = (state = {}, action) => {
+  switch (action.type) {
+    case "ADD_ABOUT":
+      return {
+        state: action.data
+      }
+  }
+  return state;
+}
+
+
+
+// creating a store
+
+const store = createStore(aboutReducer, window.devToolsExtension && window.devToolsExtension()
+);
+console.log(store.getState());
+
 ReactDOM.render(
   <React.StrictMode>
-   <Provider store={store}> 
-    <App />
+    <Provider store={store}>
+      <App />
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
